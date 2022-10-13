@@ -16,8 +16,6 @@ public class SampleGraphInsertion implements CommandLineRunner {
     private final IPersonRepository personRepository;
     private final ILikeRepository likeRepository;
 
-    private final GraphTraversalSource g;
-
     @Override
     public void run(String... args) throws Exception {
         personRepository.save(new Person("1234", "Pedro"));
@@ -35,10 +33,6 @@ public class SampleGraphInsertion implements CommandLineRunner {
         log.info("FOUND JOAO ==> {}", personRepository.getById("PERSON#123").get());
         log.info("FOUND MARIA ==> {}", personRepository.getById("PERSON#12").get());
         log.info("FOUND ALAMBRADO ==> {}", personRepository.getById("PERSON#1").get());
-
-        final var vertices = g.V().has("PERSON", "entity_id", "1234")
-                .in("LIKES").valueMap().toList();
-        log.info("VERTICES ===> {}", vertices);
 
         final var pedroLikes = personRepository.peopleWhoLikes(person1);
         log.info("PEOPLE LIKES PEDRO >>> {}", pedroLikes);
