@@ -1,0 +1,19 @@
+version: "3.1"
+
+services:
+  tinkerpop-gremlin-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: gremlin-server
+    hostname: gremlin-server
+    environment:
+      GREMLIN_YAML: gremlin-server.yaml
+    ports:
+      - 8182:8182
+    networks:
+      - local-network
+
+networks:
+  local-network:
+    driver: bridge
